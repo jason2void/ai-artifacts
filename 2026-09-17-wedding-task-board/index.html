@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>景智 × 榆鈞 婚禮任務表</title>
+<style>
+:root{
+  --bg:#faf7f4; --card:#ffffff; --ink:#2c2621; --muted:#8a7f75;
+  --line:#e8dfd6; --accent:#b08968; --accent-soft:#f3e9df;
+  --chip:#f6efe8; --shadow:0 1px 3px rgba(60,45,30,.07),0 8px 24px rgba(60,45,30,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#17140f; --card:#221d18; --ink:#ece4da; --muted:#9c9086;
+    --line:#332b24; --accent:#d4a574; --accent-soft:#2e251d;
+    --chip:#2b241d; --shadow:0 1px 3px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#17140f; --card:#221d18; --ink:#ece4da; --muted:#9c9086;
+  --line:#332b24; --accent:#d4a574; --accent-soft:#2e251d;
+  --chip:#2b241d; --shadow:0 1px 3px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"PingFang TC","Noto Sans TC","Hiragino Sans TC",system-ui,-apple-system,sans-serif;
+  line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px 80px}
+header{padding:44px 0 26px;text-align:center;border-bottom:1px solid var(--line);margin-bottom:26px}
+h1{margin:0 0 6px;font-size:clamp(23px,5vw,34px);font-weight:600;letter-spacing:.06em}
+.sub{color:var(--muted);font-size:14px;margin:0}
+.sub b{color:var(--accent);font-weight:600}
+.toolbar{position:sticky;top:0;background:var(--bg);z-index:5;
+  padding:10px 0 12px;margin-bottom:18px;border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;margin-bottom:9px;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--muted);
+  padding:9px 16px;border-radius:999px;font-size:14px;cursor:pointer;transition:.15s;
+  font-family:inherit;white-space:nowrap;min-height:38px}
+.tab:hover{border-color:var(--accent);color:var(--ink)}
+.tab.on{background:var(--accent);border-color:var(--accent);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tab.on{color:#17140f}}
+:root[data-theme="dark"] .tab.on{color:#17140f}
+#q{width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);
+  border-radius:999px;padding:10px 18px;font-size:16px;font-family:inherit;outline:none}
+#q:focus{border-color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:16px 18px 12px;box-shadow:var(--shadow);position:relative}
+.card.pinned{border-color:var(--accent);background:linear-gradient(var(--accent-soft),var(--card) 64px)}
+.card h2{margin:0;font-size:18px;font-weight:600;display:flex;align-items:baseline;
+  gap:8px;flex-wrap:wrap;padding-right:40px}
+.role{font-size:12px;color:var(--muted);font-weight:400}
+.pin{position:absolute;top:8px;right:8px;width:38px;height:38px;border:none;background:none;
+  cursor:pointer;font-size:17px;line-height:1;border-radius:10px;opacity:.28;
+  transition:.15s;display:flex;align-items:center;justify-content:center;padding:0}
+.pin:hover{opacity:.7;background:var(--chip)}
+.card.pinned .pin{opacity:1}
+.tagline{display:inline-block;margin:6px 0 12px;font-size:12px;color:var(--accent);
+  background:var(--accent-soft);padding:2px 9px;border-radius:5px}
+ul.tl{list-style:none;margin:0;padding:0}
+ul.tl li{display:grid;grid-template-columns:76px 1fr;gap:10px;padding:7px 0;
+  border-top:1px dashed var(--line);font-size:14.5px}
+ul.tl li:first-child{border-top:none}
+.t{color:var(--accent);font-variant-numeric:tabular-nums;font-size:12.5px;font-weight:600;padding-top:3px}
+.d{color:var(--ink)}
+.d small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.day{display:inline-block;font-size:10.5px;background:var(--chip);color:var(--muted);
+  padding:1px 6px;border-radius:4px;margin-right:5px;vertical-align:1px;font-weight:600}
+h3.sec{grid-column:1/-1;margin:14px 0 -2px;font-size:13px;color:var(--muted);
+  font-weight:600;letter-spacing:.08em;display:flex;align-items:center;gap:8px}
+h3.sec::after{content:"";flex:1;height:1px;background:var(--line)}
+h3.sec:first-child{margin-top:0}
+.scroller{grid-column:1/-1;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--line);border-radius:14px;background:var(--card);box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+th{color:var(--muted);font-weight:600;font-size:12px;letter-spacing:.05em;white-space:nowrap}
+.empty{color:var(--muted);text-align:center;padding:50px 0;grid-column:1/-1}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:40px}
+@media (max-width:560px){
+  ul.tl li{grid-template-columns:68px 1fr;gap:9px;font-size:14px}
+  .wrap{padding:0 16px 60px}
+  header{padding:30px 0 20px;margin-bottom:0}
+  .grid{grid-template-columns:1fr;gap:14px}
+  .card{padding:15px 16px 11px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>景智 × 榆鈞</h1>
+  <p class="sub">2026.09.19（六）｜高雄漢來巨蛋・金龍廳｜晚宴 20 桌<br>
+  <b>18:00</b> 賓客入席　<b>18:30</b> 正式開宴　<b>約 21:00</b> 送客</p>
+</header>
+
+<div class="toolbar">
+  <div class="tabs">
+  <button class="tab on" data-g="all">全部</button>
+  <button class="tab" data-g="新人">新人・家人</button>
+  <button class="tab" data-g="總召">總招待</button>
+  <button class="tab" data-g="工作">工作人員</button>
+  <button class="tab" data-g="車輛">車輛</button>
+  <button class="tab" data-g="廠商">廠商・老師</button>
+  <button class="tab" data-g="timeline">總時間軸</button>
+  <button class="tab" data-g="items">物品清單</button>
+  </div>
+  <input id="q" placeholder="搜尋人名或任務…" autocomplete="off">
+</div>
+
+<div class="grid" id="grid"></div>
+
+<footer>資料來源：婚禮總企劃 Excel 版＋最新版 Word ｜ 產生於 2026-09-17</footer>
+</div>
+
+<script>
+const P = [
+ {n:"榆鈞",r:"新娘",g:["新人"],tag:"主角",
+  x:[["9/18","18:00","兩家人婚前小聚（19:00 聚餐，最晚 22:00 結束）"],
+     ["9/18","22:00後","確認新人用品：白紗、戒指、高跟鞋、扇子、喜帖、科服×2、鞭炮、拜別墊子，之後休息"],
+     ["9/19","12:30","與媽媽一起開妝（史拉拉老師＋小幫手）。第一套：緞面大裙襬白紗"],
+     ["9/19","14:00–15:30","白紗造型完成"],
+     ["9/19","15:30–15:50","拜別爸爸媽媽：兩人拜別 → 景智說話 → 爸媽祝福 → <b>榆鈞最後說話</b> → 擁抱 → 四人合照 → 女方家人大合照"],
+     ["9/19","16:00","搭②新人禮車出發，出發時<b>輕拋扇子</b>（不潑水、不開回頭路）"],
+     ["9/19","16:40–16:50","進 10 樓 A 房休息室；等攝影師到再揭頭紗拍照，史拉拉整理白紗頭紗妝髮"],
+     ["9/19","17:00–17:30","婚宴彩排：一進走位、新人相遇位置、音樂 Cue、誓言、倒高粱、二進舞蹈、退場"],
+     ["9/19","18:30","正式開宴"],
+     ["9/19","一進後","二進換裝與活動"],
+     ["9/19","約21:00","送客"]]},
+
+ {n:"景智",r:"新郎",g:["新人"],tag:"主角",
+  x:[["9/18","18:00","兩家人婚前小聚"],
+     ["9/18","22:00後","與新娘一起確認新人用品與拜別墊子"],
+     ["9/19","15:30–15:50","拜別儀式：兩人拜別後 <b>景智先說話</b>"],
+     ["9/19","16:00","搭②新人禮車出發（戒指同車）"],
+     ["9/19","16:40–16:50","進 10 樓 A 房休息室，等攝影師揭頭紗拍照"],
+     ["9/19","17:00–17:30","彩排：一進走位、等待位置、〈祝你幸福〉與新郎進場歌曲、誓言、倒高粱、二進舞蹈"],
+     ["9/19","18:30","正式開宴"],
+     ["9/19","一進後","二進換裝與活動"],
+     ["9/19","約21:00","送客"]]},
+
+ {n:"爸爸・媽媽",r:"女方父母",g:["新人"],
+  x:[["9/18","18:00","兩家人婚前小聚"],
+     ["9/19","12:30","媽媽與新娘一起開妝"],
+     ["9/19","15:30–15:50","拜別：入座 → 接受拜別 → 說話祝福 → 擁抱 → 四人合照<small>音樂：筷子兄弟〈父親〉／孫淑媚〈父母的心聲〉</small>"],
+     ["9/19","16:00","搭①爸媽車（前導車，清隨駕駛）前往漢來"],
+     ["9/19","婚宴中","爸爸說話及唱歌（彩排時確認位置）"]]},
+
+ {n:"清隨",r:"總召／總招待",g:["總召","車輛"],tag:"現場總控",
+  x:[["9/19","16:00","駕駛①爸媽車 EBW-3708（前導車），載爸爸、媽媽、1 位小孩，停飯店大門"],
+     ["9/19","16:40後","<b>金龍廳現場總控</b>：確認各廠商是否進駐、施工情形、物品擺放是否完整美觀<small>完成或未完成都請回報群組／廠商群，讓新娘知道現場狀況</small>"],
+     ["9/19","17:30–18:30","主要總招待"],
+     ["9/19","全場","狀況窗口：收禮、似顏繪等有問題皆回報清隨或畯凱；似顏繪老師 17:30 未到，由總召在廠商群聯絡"]]},
+
+ {n:"畯凱",r:"總招待／男方帶位",g:["總召"],
+  x:[["9/19","16:40後","與清隨一起確認廠商進駐、施工與物品擺放"],
+     ["9/19","17:30–18:30","男方帶位（與易弘）"],
+     ["9/19","全場","與清隨同為現場狀況窗口"],
+     ["9/19","一進後","通知換裝、準備二進活動物品，物品交給主持人"]]},
+
+ {n:"欣育",r:"收禮金",g:["工作"],
+  x:[["9/19","16:40後","確認收禮用品：簽名本、奇異筆、橡皮筋、袋子是否足夠<small>不夠先找飯店小管家，找不到再告知清隨或畯凱</small>"],
+     ["9/19","17:30–18:25","收禮金（立牌引導賓客把紅包拿到 <b>3 桌新郎家人桌</b>）<small>收到 18:25 或進場前 5–10 分鐘，視人潮決定</small>"]]},
+
+ {n:"欣增",r:"收禮金",g:["工作"],
+  x:[["9/19","16:40後","協助確認收禮用品是否足夠"],
+     ["9/19","17:30–18:25","與欣育一起收禮金"]]},
+
+ {n:"欣晏",r:"似顏繪",g:["工作"],
+  x:[["9/19","16:40後","確認似顏繪老師是否 17:30 抵達；未抵達前先協助收禮區<small>17:30 仍未到請告知清隨或畯凱</small>"],
+     ["9/19","17:30–18:30","似顏繪登記與發放（<b>前 100 名</b>），協助老師拍照，再引導賓客入席"],
+     ["9/19","約21:00","送客時協助賓客領取似顏繪作品"]]},
+
+ {n:"鈞祺",r:"機動／小喜餅",g:["工作","車輛"],
+  x:[["9/19","15:30前","與至善協助整理拜別用的爸媽椅子×2（現成沙發，保持畫面乾淨）與新人跪墊×2"],
+     ["9/19","15:50–16:00","與至善確認所有該上車的東西"],
+     ["9/19","16:00","②新人禮車副駕（柏侖駕駛）"],
+     ["9/19","16:40後","依喜餅名單把小喜餅放到指定賓客座位（<b>女方限定座位禮</b>），完成後當現場機動"],
+     ["9/19","17:00–17:30","彩排時協助定點位置確認是否貼貼紙，確認 V 型隊伍完整"],
+     ["9/19","有空檔","協助男方舞蹈教學"]]},
+
+ {n:"柏侖",r:"影像簽到",g:["工作","車輛"],
+  x:[["9/19","16:00","駕駛②新人禮車 EBN0698（載新人與戒指），停飯店大門"],
+     ["9/19","16:40後","抵達飯店後確認影像錄影完整情形"],
+     ["9/19","17:00","到一樓拿廠商工作人員餐與飲料（餐已提早訂）"],
+     ["9/19","17:30–18:30","<b>影像簽到</b>：鏡頭前放透明壓克力板，賓客簽名／畫圖並對鏡頭祝福；確認錄影成功後擦板，再換下一組"]]},
+
+ {n:"至善",r:"女方帶位／物品",g:["工作","車輛"],
+  x:[["9/19","15:30前","與鈞祺整理拜別椅子×2 與新人跪墊×2"],
+     ["9/19","15:50–16:00","與鈞祺確認所有該上車的東西"],
+     ["9/19","16:00","駕駛⑤車（惠欣、惠欣妹同車）"],
+     ["9/19","16:40後","與易弘、阿中、品毅把物品從一樓訂席管理中心搬到 9 樓金龍廳<small>喜餅 1 箱×30 盒／應援螢光棒 50 支／相本、大照片、影像簽到設備、6 支槍、解酒液／貢糖、高粱酒</small>"],
+     ["9/19","17:30–18:30","女方帶位（與惠欣）"],
+     ["9/19","婚宴後","與未喝酒的姐姐們把相本、大照片、影像簽到設備、6 支槍、未喝完的酒載回左營住處"]]},
+
+ {n:"惠欣",r:"女方帶位",g:["工作","車輛"],
+  x:[["9/19","15:30–15:50","拜別儀式協助<b>衛生紙與音樂</b>（〈父親〉／〈父母的心聲〉）"],
+     ["9/19","16:00","搭⑤至善車（惠欣妹同行）"],
+     ["9/19","17:30–18:30","女方帶位（與至善）"]]},
+
+ {n:"易弘",r:"男方帶位／物品",g:["工作"],
+  x:[["9/19","16:40後","與至善、阿中、品毅搬運物品至 9 樓金龍廳"],
+     ["9/19","17:30–18:30","男方帶位（與畯凱）"],
+     ["9/19","一進後","換裝、準備二進活動"]]},
+
+ {n:"阿中",r:"物品／接送新秘",g:["工作","車輛"],
+  x:[["9/19","接送","駕駛⑥阿中車，負責接送<b>新秘老師 ×2</b>"],
+     ["9/19","16:40後","與至善、易弘、品毅搬運物品至 9 樓金龍廳"],
+     ["9/19","一進後","換裝、準備二進活動"]]},
+
+ {n:"品毅",r:"物品／二進",g:["工作","車輛"],
+  x:[["9/19","16:00","駕駛④品毅車，載姊＋2 位小孩，停巨蛋樓下停車位"],
+     ["9/19","16:40後","與至善、易弘、阿中搬運物品至 9 樓金龍廳"],
+     ["9/19","一進後","換裝、準備二進活動"]]},
+
+ {n:"崇凱哥",r:"放炮",g:["工作","車輛"],
+  x:[["9/19","16:00","民宿出發時<b>放炮</b>，放完車輛才出發"]]},
+
+ {n:"敏淳姐",r:"撿扇",g:["工作"],
+  x:[["9/19","16:00","車隊出發、新娘輕拋扇子後負責<b>撿扇子</b>"]]},
+
+ {n:"庭毅哥",r:"採購",g:["工作"],
+  x:[["9/17前","—","協助買<b>蘋果 18 顆</b>"]]},
+
+ {n:"哥哥・大嫂",r:"男方家人",g:["車輛"],
+  x:[["9/19","16:00","駕駛③哥哥車，載大嫂＋2 位小孩，停巨蛋樓下停車位"]]},
+
+ {n:"史拉拉老師",r:"新秘",g:["廠商"],
+  x:[["9/19","12:30","新娘＋媽媽開妝（帶小幫手）。第一套：緞面大裙襬白紗"],
+     ["9/19","14:00–15:30","白紗造型完成"],
+     ["9/19","16:40後","新人抵達 10 樓休息室後整理白紗、頭紗與妝髮"]]},
+
+ {n:"瓦力老師",r:"婚攝",g:["廠商"],
+  x:[["9/19","13:30–13:45","抵達民宿開始拍攝"],
+     ["9/19","16:40–16:50","休息室揭頭紗、依儀式拍照"]]},
+
+ {n:"小馬老師",r:"婚錄",g:["廠商"],
+  x:[["9/19","15:30–15:50","抵達民宿，擔任<b>拜別儀式主要引導人</b>，帶完整拜別流程"]]},
+
+ {n:"小鹿",r:"主持",g:["廠商"],
+  x:[["9/19","16:45","主持團隊抵達"],
+     ["9/19","17:00–17:30","主持彩排：走位、音樂 Cue、誓言、倒高粱、二進舞蹈、退場"],
+     ["9/19","18:30起","主持婚宴流程；二進活動由主持人接手"]]},
+
+ {n:"似顏繪老師",r:"廠商",g:["廠商"],
+  x:[["9/19","17:30","抵達現場，由欣晏協助登記發放，前 100 名賓客"]]},
+
+ {n:"待指定／機動",r:"前置作業",g:["工作"],
+  x:[["9/17","—","送至巨蛋飯店：相本×1、大照片×1、誓言卡 230 張（請飯店協助發）、影像簽到設備（壓克力板）、6 支槍、解酒液 1 箱、應援螢光棒 50 支、喜餅確認單、婚禮獎品×3（馬修音響／蘋果 18／香水）、婚禮禮物×6、高粱酒×2＋喜宴酒、貢糖多包"],
+     ["9/18","—","<b>喜餅親送飯店</b>（1 箱×30 盒）"]]}
+];
+
+const CARS=[["①爸媽車 EBW-3708","飯店大門・前導車","清隨","爸爸、媽媽、1 位小孩","綁花；放炮後出發"],
+["②新人禮車 EBN0698","飯店大門","柏侖","副駕鈞祺；景智、榆鈞","載新人與戒指；綁花；新娘拋扇"],
+["③哥哥車","巨蛋樓下停車位","哥哥","大嫂、2 位小孩","—"],
+["④品毅車","巨蛋樓下停車位","品毅","姊、2 位小孩","—"],
+["⑤至善／惠欣車","依現場安排","至善","惠欣、惠欣妹","—"],
+["⑥阿中車","依現場安排","阿中","新秘老師 ×2","接送新秘"]];
+
+const ITEMS=[["新人用品","白紗／戒指／高跟鞋／扇子","9/18 晚上確認","新人"],
+["儀式","新人跪墊 ×2、爸媽椅子 ×2","拜別前","至善＋鈞祺"],
+["儀式","衛生紙、拜別音樂","拜別","惠欣"],
+["儀式","鞭炮 1 串、綁帶 ×2 台車（4 側門＋車頭）、扇子 ×1","16:00 出發","崇凱哥"],
+["飯店物品","婚紗相本 ×1、大照片 ×1","9/17 送飯店","待指定"],
+["飯店物品","誓言卡 230 張","9/17 送飯店","飯店協助發"],
+["活動","影像簽到設備／壓克力板","9/17 送飯店","柏侖"],
+["活動","槍 ×6、解酒液 1 箱、應援螢光棒 50 支","9/17 送飯店","二進人員"],
+["喜餅","喜餅 30 盒（1 箱）、喜餅確認單","9/18 送飯店","指定人員"],
+["婚禮獎品","馬修音響、蘋果 18、香水","飯店","指定人員（蘋果：庭毅哥採購）"],
+["婚禮禮物","婚禮禮物 ×6","飯店","指定人員"],
+["酒水","高粱酒 ×2＋喜宴酒、貢糖多包","飯店","指定人員"]];
+
+const TL=[["9/17","—","提前進場","相本、大照片、誓言卡 230 張、影像簽到設備、6 支槍、解酒液、螢光棒、婚禮獎品、婚禮禮物、高粱酒、貢糖送至飯店","指定人員"],
+["9/18","18:00–20:30","Wedding Eve","兩家人婚前小聚；19:00 聚餐，21:00 收尾，最晚 22:00 結束","新人＋雙方家人"],
+["9/18","21:00後","用品確認","白紗、戒指、高跟鞋、扇子、喜帖、科服×2、鞭炮、拜別墊子","新人"],
+["9/19","12:30","新娘開妝","新娘＋媽媽開妝；第一套緞面大裙襬白紗","史拉拉老師"],
+["9/19","13:30–13:45","婚攝抵達","瓦力老師抵達民宿","瓦力老師"],
+["9/19","14:00–15:30","造型完成","白紗造型完成","史拉拉老師"],
+["9/19","15:30–15:50","婚錄抵達／拜別","小馬老師抵達並引導拜別：入座→拜別→景智說話→父母祝福→榆鈞說話→擁抱→合照<br><small>當天沒有迎娶、闖關等傳統儀式</small>","小馬老師"],
+["9/19","15:50–16:00","出發前確認","確認所有該上車的物品","至善＋鈞祺"],
+["9/19","16:00","民宿→漢來","爸媽車、禮車出發；綁車、放炮、拋扇、撿扇；不開回頭路","崇凱哥／敏淳姐"],
+["9/19","16:40–16:50","新人抵達","進 10 樓 A 房休息室；等攝影師後揭頭紗拍照；史拉拉整理造型","新人＋史拉拉"],
+["9/19","16:40後","現場就位","總招待確認廠商與施工／收禮／似顏繪／小喜餅／影像簽到／物品搬運至 9 樓","各負責人"],
+["9/19","16:45","主持抵達","主持團隊抵達","小鹿"],
+["9/19","17:00","廠商餐","一樓拿廠商工作人員餐與飲料","柏侖"],
+["9/19","17:00–17:30","婚宴彩排","走位、爸媽位置、爸爸說話唱歌、新人相遇、音樂 Cue、誓言、倒高粱、二進舞蹈、退場；確認 V 型隊伍與地貼","主持＋新人＋工作人員"],
+["9/19","17:30–18:30","迎賓","收禮、似顏繪（前 100 名）、影像簽到、招待帶位<br><small>收禮至 18:25 或進場前 5–10 分鐘</small>","各負責人"],
+["9/19","18:00","賓客入席","賓客入席","招待團隊"],
+["9/19","18:30","正式開宴","婚宴開始","主持＋飯店"],
+["9/19","一進後","二進準備","通知畯凱、易弘、品毅、阿中換裝，備妥二進物品交主持人","二進人員"],
+["9/19","婚宴結束","物品回收","相本、大照片、影像簽到設備、6 支槍、未喝完的酒載回左營住處","至善／未飲酒人員"],
+["9/19","約21:00","送客","新人送客；似顏繪賓客領取作品","新人＋工作人員"]];
+
+const grid=document.getElementById('grid');
+let cur='all', kw='';
+
+const KEY='wedding-pins-20260919';
+let pins=[];
+try{ pins=JSON.parse(localStorage.getItem(KEY))||[]; }catch(e){ pins=[]; }
+const savePins=()=>{ try{ localStorage.setItem(KEY,JSON.stringify(pins)); }catch(e){} };
+
+function esc(x){return String(x).replace(/"/g,'&quot;');}
+
+function cardHTML(p){
+  const on=pins.includes(p.n);
+  return '<div class="card'+(on?' pinned':'')+'">'+
+    '<button class="pin" data-n="'+esc(p.n)+'" title="'+(on?'取消釘選':'釘選到最上方')+'" '+
+      'aria-pressed="'+on+'">'+(on?'\u{1F4CC}':'\u{1F4CD}')+'</button>'+
+    '<h2>'+p.n+' <span class="role">'+p.r+'</span></h2>'+
+    (p.tag?'<span class="tagline">'+p.tag+'</span>':'')+
+    '<ul class="tl">'+p.x.map(i=>
+      '<li><span class="t">'+i[1]+'</span><span class="d">'+
+      (i[0]==='9/19'?'':'<span class="day">'+i[0]+'</span>')+i[2]+'</span></li>'
+    ).join('')+'</ul></div>';
+}
+function tbl(head,rows){
+  return '<div class="scroller"><table><thead><tr>'+head.map(h=>'<th>'+h+'</th>').join('')+
+    '</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(c=>'<td>'+c+'</td>').join('')+'</tr>').join('')+
+    '</tbody></table></div>';
+}
+
+function render(){
+  let html='';
+  // 釘選區：不論切到哪個分頁、搜尋什麼都固定顯示在最上方
+  const pinned=pins.map(n=>P.find(p=>p.n===n)).filter(Boolean);
+  if(pinned.length){
+    html+='<h3 class="sec">\u{1F4CC} 我的釘選</h3>'+pinned.map(cardHTML).join('');
+  }
+
+  if(cur==='timeline'&&!kw){
+    html+='<h3 class="sec">全場總時間軸</h3>'+tbl(['日期','時間','階段','內容／任務','負責人'],
+      TL.map(r=>[r[0],'<span class="t">'+r[1]+'</span>',r[2],r[3],r[4]]));
+    grid.innerHTML=html; return;
+  }
+  if(cur==='items'&&!kw){
+    html+='<h3 class="sec">車輛安排</h3>'+tbl(['車輛','停車／位置','駕駛','搭乘人員','備註'],CARS)+
+          '<h3 class="sec">物品 Check List</h3>'+tbl(['類別','物品','時間／地點','負責人'],ITEMS);
+    grid.innerHTML=html; return;
+  }
+
+  const list=P.filter(p=>{
+    if(pins.includes(p.n)) return false;           // 已在釘選區，不重複
+    const gok = (cur==='all'||cur==='timeline'||cur==='items') ? true : p.g.includes(cur);
+    if(!gok) return false;
+    if(!kw) return true;
+    return (p.n+p.r+p.x.map(i=>i.join('')).join('')).toLowerCase().includes(kw);
+  });
+
+  if(!list.length){
+    html+= pinned.length ? '' : '<p class="empty">找不到符合的人員或任務</p>';
+  }else{
+    if(pinned.length) html+='<h3 class="sec">其他</h3>';
+    html+=list.map(cardHTML).join('');
+  }
+  grid.innerHTML=html;
+}
+
+grid.addEventListener('click',e=>{
+  const b=e.target.closest('.pin'); if(!b) return;
+  const n=b.dataset.n;
+  const i=pins.indexOf(n);
+  if(i>-1) pins.splice(i,1); else pins.unshift(n);
+  savePins(); render();
+  if(i<0) window.scrollTo({top:0,behavior:'smooth'});
+});
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');cur=b.dataset.g;render();
+});
+document.getElementById('q').oninput=e=>{kw=e.target.value.trim().toLowerCase();render();};
+render();
+</script>
+</body>
+</html>
